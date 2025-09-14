@@ -1,0 +1,17 @@
+{
+  "name": "typing-ninja",
+  "version": "1.0.0",
+  "description": "A typing speed game with falling words",
+  "main": "dist/main.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "serve": "python3 -m http.server 8080"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "keywords": ["typing", "game", "typescript"],
+  "author": "",
+  "license": "MIT"
+}
