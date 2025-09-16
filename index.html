@@ -48,6 +48,9 @@
                     <button id="show-leaderboard" class="action-btn secondary">
                         🏆 Leaderboard
                     </button>
+                    <button id="show-achievements" class="action-btn secondary">
+                        🎯 Achievements
+                    </button>
                     <button id="show-settings" class="action-btn secondary">
                         ⚙️ Settings
                     </button>
@@ -117,6 +120,26 @@
                     <!-- Leaderboard entries will be populated here -->
                 </div>
                 <button id="back-to-menu" class="action-btn">Back to Menu</button>
+            </div>
+        </div>
+
+        <!-- Achievements Screen -->
+        <div id="achievements-screen" class="screen">
+            <div class="achievements-container">
+                <h2>🎯 Achievements</h2>
+                <div class="progress-summary">
+                    <div class="progress-text">
+                        <span id="achievement-progress">0</span>% Complete
+                        (<span id="unlocked-count">0</span> of <span id="total-count">0</span>)
+                    </div>
+                    <div class="progress-bar">
+                        <div id="progress-fill" class="progress-fill"></div>
+                    </div>
+                </div>
+                <div id="achievements-grid" class="achievements-grid">
+                    <!-- Achievement cards will be populated here -->
+                </div>
+                <button id="achievements-back" class="action-btn">Back to Menu</button>
             </div>
         </div>
 
