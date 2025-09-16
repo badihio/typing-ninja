@@ -189,6 +189,26 @@
             </div>
         </div>
 
+        <!-- High Score Name Input Dialog -->
+        <div id="high-score-name-dialog" class="modal">
+            <div class="modal-content">
+                <h2>🎉 New High Score!</h2>
+                <div class="high-score-celebration">
+                    <div class="celebration-icon">🏆</div>
+                    <p class="celebration-text">Congratulations! You've achieved a new high score!</p>
+                </div>
+                <div class="name-input-section">
+                    <label for="player-name-input" class="name-label">Enter your name for the leaderboard:</label>
+                    <input type="text" id="player-name-input" class="name-input" placeholder="Your Name" maxlength="20" autocomplete="off">
+                    <div class="name-input-hint">Press Enter to confirm</div>
+                </div>
+                <div class="modal-actions">
+                    <button id="save-high-score" class="action-btn primary">Save Score</button>
+                    <button id="skip-high-score" class="action-btn secondary">Skip</button>
+                </div>
+            </div>
+        </div>
+
         <!-- Pause Dialog -->
         <div id="pause-dialog" class="modal">
             <div class="modal-content">

@@ -1440,8 +1440,8 @@ class ScoreManager {
         return this.getHighScores().filter(score => score.level === difficulty);
     }
 
-    static isHighScore(score) {
-        const scores = this.getHighScores();
+    static isHighScore(score, difficulty) {
+        const scores = this.getHighScoresByDifficulty(difficulty);
         return scores.length < this.MAX_SCORES || score > scores[scores.length - 1].score;
     }
 
@@ -1679,6 +1679,24 @@ function setupEventListeners() {
     document.getElementById('return-menu')?.addEventListener('click', () => {
         hideModal('game-over-dialog');
         showScreen('main-menu');
+    });
+
+    // High score name dialog
+    document.getElementById('save-high-score')?.addEventListener('click', () => {
+        saveHighScore();
+    });
+
+    document.getElementById('skip-high-score')?.addEventListener('click', () => {
+        hideModal('high-score-name-dialog');
+        showGameOverDialog();
+    });
+
+    // Handle Enter key in name input
+    document.getElementById('player-name-input')?.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            saveHighScore();
+        }
     });
 
     // Keyboard input
@@ -1975,7 +1993,7 @@ function endGame() {
     
     SoundManager.playSound('gameOver');
     
-    if (ScoreManager.isHighScore(playerStats.score)) {
+    if (ScoreManager.isHighScore(playerStats.score, currentDifficulty)) {
         showHighScoreDialog();
     } else {
         showGameOverDialog();
@@ -1983,7 +2001,30 @@ function endGame() {
 }
 
 function showHighScoreDialog() {
-    const playerName = prompt('New High Score! Enter your name:') || 'Anonymous';
+    const nameDialog = document.getElementById('high-score-name-dialog');
+    const nameInput = document.getElementById('player-name-input');
+    
+    if (nameDialog && nameInput) {
+        // Reset the input field
+        nameInput.value = '';
+        
+        // Show the custom dialog
+        nameDialog.style.display = 'flex';
+        nameDialog.style.alignItems = 'center';
+        nameDialog.style.justifyContent = 'center';
+        
+        // Focus on the input field
+        setTimeout(() => {
+            nameInput.focus();
+        }, 100);
+    }
+}
+
+function saveHighScore() {
+    const nameInput = document.getElementById('player-name-input');
+    const nameDialog = document.getElementById('high-score-name-dialog');
+    
+    const playerName = nameInput.value.trim() || 'Anonymous';
     
     const highScore = {
         name: playerName,
@@ -1995,6 +2036,9 @@ function showHighScoreDialog() {
     
     ScoreManager.saveScore(highScore);
     updateLeaderboard();
+    
+    // Hide the name dialog and show game over dialog
+    hideModal('high-score-name-dialog');
     showGameOverDialog();
 }
 
@@ -2008,7 +2052,11 @@ function showGameOverDialog() {
         finalScore.textContent = ScoreManager.formatScore(playerStats.score);
         finalWpm.textContent = playerStats.wpm.toString();
         finalAccuracy.textContent = `${playerStats.accuracy}%`;
-        dialog.style.display = 'block';
+        
+        // Ensure proper flexbox centering
+        dialog.style.display = 'flex';
+        dialog.style.alignItems = 'center';
+        dialog.style.justifyContent = 'center';
     }
 }
 
@@ -2057,7 +2105,9 @@ function showScreen(screenId) {
 function showModal(modalId) {
     const modal = document.getElementById(modalId);
     if (modal) {
-        modal.style.display = 'block';
+        modal.style.display = 'flex';
+        modal.style.alignItems = 'center';
+        modal.style.justifyContent = 'center';
     }
 }
 
